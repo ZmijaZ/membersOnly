@@ -15,6 +15,7 @@ exports.signUpPost = asyncHandler(async (req, res, next) => {
       const user = new User({
         username: req.body.username,
         password: hashedPassword,
+        admin: false,
       });
       const result = await user.save();
       if (result) {
@@ -34,4 +35,38 @@ exports.logInGet = (req, res, next) => {
 exports.logInPost = passport.authenticate("local", {
   successRedirect: "/",
   failureRedirect: "/log-in",
+});
+
+exports.logOut = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+  });
+  res.redirect("/");
+};
+
+exports.adminCheckGet = (req, res, next) => {
+  res.render("adminForm", { user: req.user });
+};
+
+exports.adminCheckPost = asyncHandler(async (req, res, next) => {
+  if (req.body.passcode !== process.env.ADMIN_PASSCODE) {
+    res.redirect("/users/admin-check");
+  }
+
+  const user = new User(req.user);
+  user.admin = true;
+
+  if (!user) {
+    const err = new Error("User doesn't exist");
+    err.status = 404;
+    return next(err);
+  }
+
+  const result = await User.findByIdAndUpdate(req.user._id, user, {});
+  if (result) {
+    console.log("Admin role successfully added");
+  }
+  res.redirect("/messages");
 });

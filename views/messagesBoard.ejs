@@ -9,7 +9,9 @@
     <h1><%= title %></h1>
     <% if(user){ %>
     <h2><%= user.username %></h2>
-    <% } %> <% for(let message of messages) { %> <% if(user) { %>
+    <a href="/log-out">Log out</a>
+
+    <% } %> <% for(let message of messages) { %> <% if(user.admin) { %>
     <h3><%= message.author.username %></h3>
     <p><%= message.text %></p>
     <hr />

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+  </head>
+  <body>
+    <h1>Admin confirmation</h1>
+
+    <% if(user){ %>
+
+    <h2><%= user.username %></h2>
+    <a href="/log-out">Log out</a>
+
+    <form action="" method="post">
+      <label for="password">Passcode</label>
+      <input name="passcode" placeholder="Passcode:" type="password" />
+      <button>Become an admin</button>
+    </form>
+
+    <% } else { %>
+
+    <h3>Not logged in!</h3>
+    <p><a href="/log-in">LogIn</a></p>
+
+    <% } %>
+  </body>
+</html>
