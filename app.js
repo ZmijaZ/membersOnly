@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var messagesRouter = require("./routes/messages");
 
 const mongoose = require("mongoose");
 const User = require("./models/userModel");
@@ -83,7 +83,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/messages", messagesRouter);
 
 // app.post(
 //   "/log-in",

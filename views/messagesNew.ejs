@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <% if(user) { %>
+    <h1><%= title %> <%= user.username %></h1>
+    <form action="" method="POST">
+      <input name="user" type="hidden" value="<%= user._id %>" />
+      <label for="message">Message</label>
+      <input name="text" type="text" />
+      <button>Send message</button>
+    </form>
+
+    <% } else { %>
+    <h1><%= title %></h1>
+    <h1>Please login</h1>
+    <a href="/log-in">LOGIN</a>
+    <% } %>
+  </body>
+</html>
